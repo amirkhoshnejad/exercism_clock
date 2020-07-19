@@ -22,9 +22,37 @@ public class Clock{
     public Clock Subtract(int minutesToSubtract){
        return new Clock(hour, minute - minutesToSubtract);
     }
+    
     public override string ToString()
     {
         DateTime d = new DateTime(1,1,1,hour, minute,0);
         return d.ToString("HH:mm");
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+        var clock2 = (Clock)obj;
+        var clock1 = (Clock)this;
+        int clk1=clock1.GetHashCode();
+        int clk2=clock2.GetHashCode();
+        if(clk1 == clk2)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+       // return hour == clock2.hour && minute == clock2.minute;
+    }
+    public override int GetHashCode()
+    {        
+        int x=hour.GetHashCode();
+        int y=minute.GetHashCode();
+        return hour.GetHashCode() ^ minute.GetHashCode();
     }
 }
